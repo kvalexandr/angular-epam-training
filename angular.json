@@ -103,9 +103,21 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "angular-epam-training"
+  "defaultProject": "angular-epam-training",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }
