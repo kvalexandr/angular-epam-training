@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
-import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { SearchBarComponent } from './components/course-list/search-bar/search-bar.component';
 import { CourseListComponent } from './components/course-list/course-list.component';
 import { CourseItemComponent } from './components/course-list/course-item/course-item.component';
 import { FooterComponent } from './components/footer/footer.component';
