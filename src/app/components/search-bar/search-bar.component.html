@@ -1,0 +1,12 @@
+<div class="search__bar">
+  <div class="search">
+    <input [(ngModel)]="searchValue" class="input search__input" type="text" placeholder="Type to search" />
+    <button (click)="onSearch()" class="btn search__btn">Seach</button>
+  </div>
+  <div class="add-course">
+    <button class="btn">
+      <fa-icon [icon]="faPlusCircle"></fa-icon>
+      Add course
+    </button>
+  </div>
+</div>

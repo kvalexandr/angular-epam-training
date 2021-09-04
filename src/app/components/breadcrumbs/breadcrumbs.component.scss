@@ -1,0 +1,32 @@
+.breadcrumbs {
+  background: #fff;
+
+  ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    padding: 23px 0;
+    
+    li {
+      color: #868996;
+      font-size: 14px;
+
+      &::after {
+        content: "/";
+        padding: 0 10px 0 10px;
+      }
+
+      &:last-child::after {
+        content: "";
+        padding: 0;
+      }
+    }
+
+    li.active {
+      color: #464A5A;
+      font-weight: 700;
+    }
+  }
+}

@@ -1,0 +1,42 @@
+.header {
+  background: var(--dark);
+}
+
+.header__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 0;
+}
+
+.user {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  font-size: 14px;
+
+  fa-icon {
+    padding-right: 5px;
+  }
+}
+
+.user__login {
+  margin-right: 24px;
+
+  @media (max-width: 767px) {
+    margin-right: 10px;
+  }
+}
+
+.user__logout {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 1px;
+
+  &:hover {
+    opacity: .7;
+  }
+}

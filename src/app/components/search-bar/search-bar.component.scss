@@ -1,0 +1,23 @@
+.search__bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0;
+
+  @media (max-width: 767px) {
+    flex-wrap: wrap;
+  }
+}
+
+.search__input {
+  width: 240px;
+  margin-right: 12px;
+}
+
+.search__btn {
+  background: #67a300;
+  border: 1px solid #67a300;
+}
+
+.search {
+  margin-bottom: 10px;
+}

@@ -1,1 +1,67 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap');
+
+:root {
+	--dark: #303240;
+} 
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 16px;
+  background: #f5f6fa;
+  min-width: 375px;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+
+  &:hover {
+    opacity: .7;
+  }
+}
+
+* {
+	box-sizing: border-box;
+}
+
+.container {
+  max-width: 1110px;
+  margin: 0 auto;
+	padding: 0 15px;
+}
+
+.btn {
+  color: #fff;
+	background: #009ecc;
+	border: 1px solid #009ecc;
+  padding: 9px 12px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 14px;
+
+  &-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &:hover {
+    opacity: .7;
+  }
+}
+
+.btn-small {
+	font-size: 12px;
+	padding: 6px 12px;
+}
+
+.input {
+  border: 1px solid #ced0db;
+  border-radius: 3px;
+  padding: 10px 12px;
+  width: 100%;
+}
