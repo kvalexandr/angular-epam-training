@@ -1,6 +1,6 @@
 
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { faPen, faTrashAlt, faCalendar, faClock } from '@fortawesome/free-solid-svg-icons';
+import { faPen, faTrashAlt, faCalendar, faClock, faStar } from '@fortawesome/free-solid-svg-icons';
 import { Course } from '../../../models/Course';
 
 
@@ -14,6 +14,7 @@ export class CourseItemComponent implements OnInit {
   public faTrashAlt = faTrashAlt;
   public faCalendar = faCalendar;
   public faClock = faClock;
+  public faStar = faStar;
 
   @Input() course!: Course;
   @Output() onDelete = new EventEmitter<number>();

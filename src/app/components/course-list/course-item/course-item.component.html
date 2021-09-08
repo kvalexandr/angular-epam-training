@@ -1,12 +1,15 @@
-<div class="course-item">
+<div class="course-item" [appBorder]="course.create_data" [ngClass]="{topRated: course.topRated}">
   <div class="course-item__content">
-    <div class="course-item__title">{{course.title}}</div>
+    <div class="course-item__title">
+      {{course.title | uppercase}}
+      <fa-icon [icon]="faStar" *ngIf="course.topRated"></fa-icon>
+    </div>
     <div class="course-item__text">{{course.description}}</div>
   </div>
   <div class="course-item__left">
     <div class="course-item__time">
       <span class="course-item__duration">
-        <fa-icon [icon]="faClock"></fa-icon> 1h 28 min
+        <fa-icon [icon]="faClock"></fa-icon> {{course.duration | duration}}
       </span>
       <span class="course-item__date">
         <fa-icon [icon]="faCalendar"></fa-icon> {{course.create_data | date: 'MM/dd/yyyy'}}

@@ -1,9 +1,9 @@
-<app-search-bar></app-search-bar>
+<app-search-bar (onSearch)="courseSearch($event)"></app-search-bar>
 
 <div *ngIf="courses.length; else noCourses">
   <div class="course-list">
     <app-course-item 
-      *ngFor="let course of courses" 
+      *ngFor="let course of courses | orderBy" 
       [course]="course"
       (onDelete)="deleteCourse($event)"
     ></app-course-item>

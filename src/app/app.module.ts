@@ -13,6 +13,10 @@ import { LogoComponent } from './components/header/logo/logo.component';
 import { CourseCreateComponent } from './components/course-create/course-create.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
+import { BorderDirective } from './directives/border.directive';
+import { DurationPipe } from './pipes/duration.pipe';
+import { OrderByPipe } from './pipes/order-by.pipe';
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,11 @@ import { FormsModule } from '@angular/forms';
     CourseItemComponent,
     FooterComponent,
     LogoComponent,
-    CourseCreateComponent
+    CourseCreateComponent,
+    BorderDirective,
+    DurationPipe,
+    OrderByPipe,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
