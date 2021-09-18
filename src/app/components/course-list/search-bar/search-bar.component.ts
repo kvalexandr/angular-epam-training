@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-search-bar',
@@ -7,16 +7,17 @@ import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 })
 export class SearchBarComponent implements OnInit {
   public faPlusCircle = faPlusCircle;
-
   public searchValue: string = '';
+
+  @Output() onSearch = new EventEmitter<string>();
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  onSearch() {
-    console.log(this.searchValue);
+  searchCourse() {
+    this.onSearch.emit(this.searchValue);
   }
 
 }
