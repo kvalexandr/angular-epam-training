@@ -1,0 +1,13 @@
+.footer {
+  background: var(--dark);
+  margin-top: 80px;
+
+  &__copy {
+    padding: 22px 0;
+    color: #fff;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+}

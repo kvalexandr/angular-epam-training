@@ -1,0 +1,17 @@
+<header class="header">
+  <div class="container">
+    <div class="header__container">
+      <app-logo></app-logo>
+      <div class="user">
+        <div class="user__login">
+          <fa-icon [icon]="faUser"></fa-icon>
+          {{ userLogin }}
+        </div>
+        <button class="user__logout">
+          <fa-icon [icon]="faSign"></fa-icon>
+          Log out
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
