@@ -1,1 +1,1 @@
-# angular-epam-training
+angular-epam-training
