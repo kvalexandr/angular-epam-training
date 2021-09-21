@@ -1,3 +1,4 @@
+import { CoursesService } from './../../services/courses.service';
 import { Component, OnInit } from '@angular/core';
 import { FilterPipe } from '../../pipes/filter.pipe';
 import { Course } from '../../models/Course';
@@ -6,73 +7,16 @@ import { Course } from '../../models/Course';
   selector: 'app-course-list',
   templateUrl: './course-list.component.html',
   styleUrls: ['./course-list.component.scss'],
-  providers: [FilterPipe]
+  providers: [FilterPipe, CoursesService]
 })
 export class CourseListComponent implements OnInit {
   public courses: Course[] = [];
-  private coursesList: Course[] = [];
 
-  constructor(private filter: FilterPipe) {}
+  constructor(private filter: FilterPipe, public coursesService: CoursesService) {}
 
   ngOnInit(): void {
-    this.courses = this.coursesList = [
-      {
-        id: 1,
-        title: 'HTML + CSS',
-        create_data: new Date(2021, 8, 20).toString(),
-        duration: 30,
-        topRated: true,
-        description: `Learn about where you can find course descriptions, what information they include, how they work, and details
-        about
-        various components of a course description. Course descriptions report information about a university or
-        college's
-        classes. They're published both in course catalogs that outline degree requirements and in course schedules that
-        contain
-        descriptions for all courses offered during a particular semester.`
-      },
-      {
-        id: 2,
-        title: 'Angular',
-        create_data: new Date(2021, 7, 28).toString(),
-        duration: 80,
-        topRated: false,
-        description: `Learn about where you can find course descriptions, what information they include, how they work, and details
-        about
-        various components of a course description. Course descriptions report information about a university or
-        college's
-        classes. They're published both in course catalogs that outline degree requirements and in course schedules that
-        contain
-        descriptions for all courses offered during a particular semester.`
-      },
-      {
-        id: 3,
-        title: 'Javascript begin',
-        create_data: new Date(2021, 3, 9).toString(),
-        duration: 120,
-        topRated: true,
-        description: `Learn about where you can find course descriptions, what information they include, how they work, and details
-        about
-        various components of a course description. Course descriptions report information about a university or
-        college's
-        classes. They're published both in course catalogs that outline degree requirements and in course schedules that
-        contain
-        descriptions for all courses offered during a particular semester.`
-      },
-      {
-        id: 4,
-        title: 'Javascript pro',
-        create_data: new Date(2021, 8, 30).toString(),
-        duration: 160,
-        topRated: false,
-        description: `Learn about where you can find course descriptions, what information they include, how they work, and details
-        about
-        various components of a course description. Course descriptions report information about a university or
-        college's
-        classes. They're published both in course catalogs that outline degree requirements and in course schedules that
-        contain
-        descriptions for all courses offered during a particular semester.`
-      }
-    ];
+    this.coursesService.getList();
+    this.courses = this.coursesService.courses;
   }
 
   loadMore() {
@@ -80,11 +24,15 @@ export class CourseListComponent implements OnInit {
   }
 
   deleteCourse(id: number) {
-    console.log('Course id: ', id);
+    const isDelete = confirm("Do you really want to delete this course?");
+    if  (isDelete) {
+      this.coursesService.remove(id);
+      this.courses = this.coursesService.courses;
+    }
   }
 
   courseSearch(search: string) {
-    this.courses = this.filter.transform(this.coursesList, search);
+    this.courses = this.filter.transform(this.coursesService.courses, search);
   }
 
 }

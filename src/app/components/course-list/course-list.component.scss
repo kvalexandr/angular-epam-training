@@ -1,15 +1,19 @@
-.course-list {
-  margin-top: 20px;
+.course {
+  margin-bottom: 40px;
 
-   @media (max-width: 767px) {
-    margin-top: 0;
+  &-list {
+    margin-top: 20px;
+    
+    @media (max-width: 767px) {
+      margin-top: 0;
+    }
   }
-}
 
-.course-more {
-  text-align: center;
+  &-more {
+    text-align: center;
 
-  .btn {
-    width: 100%;
+    .btn {
+      width: 100%;
+    }
   }
 }
