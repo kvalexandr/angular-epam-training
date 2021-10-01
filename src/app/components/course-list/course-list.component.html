@@ -1,19 +1,19 @@
-<app-search-bar (onSearch)="courseSearch($event)"></app-search-bar>
+<app-breadcrumbs></app-breadcrumbs>
+<div class="container">
+  <app-search-bar (onSearch)="courseSearch($event)"></app-search-bar>
 
-<div *ngIf="courses.length; else noCourses">
-  <div class="course-list">
-    <app-course-item 
-      *ngFor="let course of courses | orderBy" 
-      [course]="course"
-      (onDelete)="deleteCourse($event)"
-    ></app-course-item>
+  <div class="course" *ngIf="courses.length; else noCourses">
+    <div class="course-list">
+      <app-course-item *ngFor="let course of courses | orderBy" [course]="course" (onDelete)="deleteCourse($event)">
+      </app-course-item>
+    </div>
+    <div class="course-more">
+      <button class="btn" (click)="loadMore()">Load more</button>
+    </div>
   </div>
-  <div class="course-more">
-    <button class="btn" (click)="loadMore()">Load more</button>
-  </div>
+
+
+  <ng-template #noCourses>
+    <p>Courses not found</p>
+  </ng-template>
 </div>
-
-
-<ng-template #noCourses>
-  <p>Courses not found</p>
-</ng-template>
