@@ -1,24 +1,42 @@
-import { Injectable } from '@angular/core';
+import {Injectable, Injector} from '@angular/core';
+import {StorageLocalService} from "./storage-local.service";
+import {environment} from "../../environments/environment";
+import {StorageSessionService} from "./storage-session.service";
+import {UserLogin, UserStorageData} from "../models/User";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor() { }
+  storageService = environment.storageService;
+  storage: UserStorageData;
+
+  constructor(injector: Injector) {
+    switch (this.storageService) {
+      case 'local':
+        this.storage = injector.get(StorageLocalService);
+        break;
+      case 'session':
+        this.storage = injector.get(StorageSessionService);
+        break;
+      default:
+        throw new Error('Not service storage');
+    }
+  }
 
   login(email: string, password: string) {
-    const user = {
+    const user: UserLogin = {
       email,
       password
     }
-    localStorage.setItem('user', JSON.stringify(user));
+    this.storage.add('user', user);
     console.log('login');
     return true;
   }
 
   logout() {
-    localStorage.setItem('user', '');
+    this.storage.remove('user');
     console.log('logout');
   }
 
@@ -32,8 +50,6 @@ export class AuthService {
   }
 
   getUserInfo() {
-    const storage: string = localStorage.getItem('user') || '{}';
-    const user = JSON.parse(storage);
-    return user;
+    return this.storage.getByName('user');
   }
 }

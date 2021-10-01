@@ -1,9 +1,7 @@
 import { Course } from './../models/Course';
 import { Injectable } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class CoursesService {
 
   public courses: Course[] = [];
@@ -83,7 +81,9 @@ export class CoursesService {
 
   }
 
-  remove(id: number) {
-    this.courses = this.courses.filter(course => course.id !== id);
+  remove(elem: Course) {
+    const courseSet = new Set(this.courses);
+    courseSet.delete(elem);
+    this.courses = Array.from(courseSet);
   }
 }

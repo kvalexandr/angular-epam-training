@@ -23,10 +23,10 @@ export class CourseListComponent implements OnInit {
     console.log('load more...');
   }
 
-  deleteCourse(id: number) {
+  deleteCourse(elem: Course) {
     const isDelete = confirm("Do you really want to delete this course?");
     if  (isDelete) {
-      this.coursesService.remove(id);
+      this.coursesService.remove(elem);
       this.courses = this.coursesService.courses;
     }
   }
