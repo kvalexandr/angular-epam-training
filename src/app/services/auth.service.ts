@@ -1,7 +1,5 @@
-import {Injectable, Injector} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {StorageLocalService} from "./storage-local.service";
-import {environment} from "../../environments/environment";
-import {StorageSessionService} from "./storage-session.service";
 import {UserLogin, UserStorageData} from "../models/User";
 
 @Injectable({
@@ -9,20 +7,7 @@ import {UserLogin, UserStorageData} from "../models/User";
 })
 export class AuthService {
 
-  storageService = environment.storageService;
-  storage: UserStorageData;
-
-  constructor(injector: Injector) {
-    switch (this.storageService) {
-      case 'local':
-        this.storage = injector.get(StorageLocalService);
-        break;
-      case 'session':
-        this.storage = injector.get(StorageSessionService);
-        break;
-      default:
-        throw new Error('Not service storage');
-    }
+  constructor(private storage: UserStorageData) {
   }
 
   login(email: string, password: string) {
