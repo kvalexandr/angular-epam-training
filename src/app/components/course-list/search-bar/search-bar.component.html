@@ -4,7 +4,7 @@
     <button (click)="searchCourse()" class="btn search__btn">Seach</button>
   </div>
   <div class="add-course">
-    <button class="btn">
+    <button class="btn" [routerLink]="['/add']">
       <fa-icon [icon]="faPlusCircle"></fa-icon>
       Add course
     </button>
