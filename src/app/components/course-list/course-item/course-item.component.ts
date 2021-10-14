@@ -1,13 +1,13 @@
-
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { faPen, faTrashAlt, faCalendar, faClock, faStar } from '@fortawesome/free-solid-svg-icons';
-import { Course } from '../../../models/Course';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {faCalendar, faClock, faPen, faStar, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
+import {Course} from '../../../models/Course';
 
 
 @Component({
   selector: 'app-course-item',
   templateUrl: './course-item.component.html',
-  styleUrls: ['./course-item.component.scss']
+  styleUrls: ['./course-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourseItemComponent implements OnInit {
   public faPen = faPen;
