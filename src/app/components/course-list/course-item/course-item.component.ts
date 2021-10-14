@@ -16,8 +16,7 @@ export class CourseItemComponent implements OnInit {
   public faClock = faClock;
   public faStar = faStar;
 
-  @Input() course!: Course;
-  @Input() courseIndex: number = 0;
+  @Input() course: Course = {} as Course;
   @Output() onDelete = new EventEmitter<Course>();
 
   constructor() {
