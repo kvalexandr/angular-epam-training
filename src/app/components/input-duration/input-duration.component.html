@@ -1,0 +1,8 @@
+<input
+  class="input input-150"
+  type="text"
+  placeholder="minutes"
+  name="minutes"
+  [(ngModel)]="value"
+/>
+<span class="duration-transform" *ngIf="value > 0">{{value | duration}}</span>

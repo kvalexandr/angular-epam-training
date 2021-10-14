@@ -1,4 +1,4 @@
-.search__bar {
+.search {
   display: flex;
   justify-content: space-between;
   padding: 20px 0;
@@ -6,18 +6,18 @@
   @media (max-width: 767px) {
     flex-wrap: wrap;
   }
-}
 
-.search__input {
-  width: 240px;
-  margin-right: 12px;
-}
+  &__container {
+    margin-bottom: 10px;
+  }
 
-.search__btn {
-  background: #67a300;
-  border: 1px solid #67a300;
-}
+  &__input {
+    width: 240px;
+    margin-right: 12px;
+  }
 
-.search {
-  margin-bottom: 10px;
+  &__btn {
+    background: #67a300;
+    border: 1px solid #67a300;
+  }
 }

@@ -1,1 +1,30 @@
-<p>course-create works!</p>
+<app-breadcrumbs></app-breadcrumbs>
+<div class="container">
+  <div class="container-form">
+    <h2>New course</h2>
+    <div class="form-field">
+      <div class="form-field__title">Title:</div>
+      <input class="input" [(ngModel)]="title" type="text" name="text" placeholder="Text input" />
+    </div>
+    <div class="form-field">
+      <div class="form-field__title">Description:</div>
+      <textarea class="textarea" [(ngModel)]="description" name="description" placeholder="Add description"></textarea>
+    </div>
+    <div class="form-field">
+      <div class="form-field__title">Date:</div>
+      <app-input-text [value]="createData"></app-input-text>
+    </div>
+    <div class="form-field">
+      <div class="form-field__title">Duration:</div>
+      <app-input-duration [value]="duration"></app-input-duration>
+    </div>
+    <div class="form-field">
+      <div class="form-field__title">Authors:</div>
+      <input class="input input-300" type="text" name="authors" placeholder="authors" />
+    </div>
+    <div class="form-field form-field--control-right">
+      <button type="submit" class="btn btn-grey" (click)="cancel()">Cancel</button>
+      <button type="submit" class="btn btn-green" (click)="save()">Save</button>
+    </div>
+  </div>
+</div>

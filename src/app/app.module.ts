@@ -18,6 +18,8 @@ import { BorderDirective } from './directives/border.directive';
 import { DurationPipe } from './pipes/duration.pipe';
 import { OrderByPipe } from './pipes/order-by.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
+import { InputTextComponent } from './components/input-text/input-text.component';
+import { InputDurationComponent } from './components/input-duration/input-duration.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { FilterPipe } from './pipes/filter.pipe';
     BorderDirective,
     DurationPipe,
     OrderByPipe,
-    FilterPipe
+    FilterPipe,
+    InputTextComponent,
+    InputDurationComponent
   ],
   imports: [
     BrowserModule,
