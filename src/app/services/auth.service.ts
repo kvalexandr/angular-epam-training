@@ -34,6 +34,15 @@ export class AuthService {
     return false;
   }
 
+  isAdmin() {
+    const user = this.getUserInfo();
+    if (user.email === 'admin@admin.ru') {
+      return true;
+    }
+
+    return false;
+  }
+
   getUserInfo() {
     return this.storage.getByName('user');
   }

@@ -20,6 +20,7 @@ import { OrderByPipe } from './pipes/order-by.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
 import { InputTextComponent } from './components/input-text/input-text.component';
 import { InputDurationComponent } from './components/input-duration/input-duration.component';
+import { ErrorComponent } from './components/error/error.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { InputDurationComponent } from './components/input-duration/input-durati
     OrderByPipe,
     FilterPipe,
     InputTextComponent,
-    InputDurationComponent
+    InputDurationComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,

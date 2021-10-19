@@ -16,7 +16,7 @@
       </span>
     </div>
     <div class="course-item__control">
-      <button class="btn btn-small">
+      <button class="btn btn-small" [routerLink]="['/courses', course.id]">
         <fa-icon [icon]="faPen"></fa-icon>
         Edit
       </button>

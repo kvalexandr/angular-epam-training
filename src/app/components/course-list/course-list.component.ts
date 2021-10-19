@@ -7,7 +7,7 @@ import { Course } from '../../models/Course';
   selector: 'app-course-list',
   templateUrl: './course-list.component.html',
   styleUrls: ['./course-list.component.scss'],
-  providers: [FilterPipe, CoursesService]
+  providers: [FilterPipe]
 })
 export class CourseListComponent implements OnInit {
   public courses: Course[] = [];

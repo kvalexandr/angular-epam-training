@@ -1,6 +1,7 @@
 import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { faUser, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,7 @@ export class HeaderComponent implements OnInit {
   public userLogin: string = '';
   public userIsAuth: boolean = false;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.userIsAuth = this.authService.isAuth();
@@ -25,6 +26,7 @@ export class HeaderComponent implements OnInit {
 
   public logoutUser() {
     this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
 }

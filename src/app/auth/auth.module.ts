@@ -1,4 +1,3 @@
-import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './components/login/login.component';
@@ -14,10 +13,7 @@ import {UserStorageData} from "../models/User";
   ],
   imports: [
     CommonModule,
-    FormsModule,
-    RouterModule.forChild([
-      {path: 'login', component: LoginComponent}
-    ])
+    FormsModule
   ],
   providers: [
     {

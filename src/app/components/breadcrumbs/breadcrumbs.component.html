@@ -2,10 +2,10 @@
   <div class="container">
     <ul class="breadcrumbs__list">
       <li class="breadcrumbs__item">
-        <a href="#">Courses</a>
+        <a [routerLink]="['/courses']">Courses</a>
       </li>
-      <li class="breadcrumbs__item active">
-        New Courses
+      <li *ngIf="breadcrumbsTitle" class="breadcrumbs__item active">
+        {{breadcrumbsTitle}}
       </li>
     </ul>
   </div>

@@ -1,15 +1,13 @@
-import { Course } from './../models/Course';
-import { Injectable } from '@angular/core';
+import {Course} from './../models/Course';
+import {Injectable} from '@angular/core';
+import {CourseInput} from "../models/CourseInput";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class CoursesService {
 
-  public courses: Course[] = [];
-
-  constructor() { }
-
-  getList() {
-    this.courses = [
+  public courses: Course[] = [
     {
       id: 1,
       title: 'HTML + CSS',
@@ -66,7 +64,13 @@ export class CoursesService {
       contain
       descriptions for all courses offered during a particular semester.`
     }
-    ];
+  ];
+
+  constructor() {
+  }
+
+  getList() {
+    return this.courses;
   }
 
   create() {
@@ -74,11 +78,15 @@ export class CoursesService {
   }
 
   getById(id: number) {
-
+    return this.courses.find(c => c.id === id)
   }
 
-  update() {
-
+  update(id: number, courseInput: CourseInput) {
+    const idx = this.courses.findIndex(c => c.id === id);
+    this.courses[idx] = {
+      ...this.courses[idx],
+      ...courseInput
+    }
   }
 
   remove(elem: Course) {
