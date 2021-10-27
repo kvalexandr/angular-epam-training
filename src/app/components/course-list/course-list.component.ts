@@ -1,38 +1,52 @@
-import { CoursesService } from './../../services/courses.service';
-import { Component, OnInit } from '@angular/core';
-import { FilterPipe } from '../../pipes/filter.pipe';
-import { Course } from '../../models/Course';
+import {CoursesService} from './../../services/courses.service';
+import {Component, OnInit} from '@angular/core';
+import {Course} from '../../models/Course';
 
 @Component({
   selector: 'app-course-list',
   templateUrl: './course-list.component.html',
-  styleUrls: ['./course-list.component.scss'],
-  providers: [FilterPipe]
+  styleUrls: ['./course-list.component.scss']
 })
 export class CourseListComponent implements OnInit {
-  public courses: Course[] = [];
+  courses: Course[] = [];
+  page = 0;
+  search = '';
 
-  constructor(private filter: FilterPipe, public coursesService: CoursesService) {}
+  constructor(public coursesService: CoursesService) {
+  }
 
   ngOnInit(): void {
-    this.coursesService.getList();
-    this.courses = this.coursesService.courses;
+    this.coursesService.getList()
+      .subscribe(courses => {
+        this.courses = courses;
+      });
   }
 
   loadMore() {
-    console.log('load more...');
+    this.coursesService.getList(++this.page, this.search)
+      .subscribe(courses => {
+        this.courses = [...this.courses, ...courses];
+      });
   }
 
-  deleteCourse(elem: Course) {
+  deleteCourse(id: number) {
     const isDelete = confirm("Do you really want to delete this course?");
-    if  (isDelete) {
-      this.coursesService.remove(elem);
-      this.courses = this.coursesService.courses;
+    if (isDelete) {
+      this.coursesService.remove(id).subscribe(() => {
+        this.coursesService.getList()
+          .subscribe(courses => {
+            this.courses = courses;
+          });
+      });
     }
   }
 
   courseSearch(search: string) {
-    this.courses = this.filter.transform(this.coursesService.courses, search);
+    this.page = 0;
+    this.coursesService.getList(this.page, search).subscribe(courses => {
+      this.courses = courses;
+      this.search = search;
+    })
   }
 
 }

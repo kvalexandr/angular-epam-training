@@ -15,7 +15,7 @@ export class StorageLocalService extends UserStorageData {
   }
 
   getByName(name: string) {
-    const storage: string = localStorage.getItem(name) || '{}';
+    const storage: string = localStorage.getItem(name) || '';
     return JSON.parse(storage);
   }
 }

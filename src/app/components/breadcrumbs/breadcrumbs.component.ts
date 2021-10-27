@@ -20,13 +20,18 @@ export class BreadcrumbsComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
-      const course = this.coursesService.getById(+params.id);
-      if (course) {
-        this.breadcrumbsTitle = course.title;
-      } else if (this.router.url === '/courses/new') {
-        this.breadcrumbsTitle = 'New course';
+      const id = +params.id;
+      if (id) {
+        this.coursesService.getById(+params.id)
+          .subscribe(course => {
+            this.breadcrumbsTitle = course.name;
+          });
       }
     });
+
+    if (this.router.url === '/courses/new') {
+      this.breadcrumbsTitle = 'New course';
+    }
   }
 
 }

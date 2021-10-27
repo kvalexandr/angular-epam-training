@@ -3,6 +3,7 @@
   type="text"
   placeholder="minutes"
   name="minutes"
+  (change)="changeLength()"
   [(ngModel)]="value"
 />
 <span class="duration-transform" *ngIf="value > 0">{{value | duration}}</span>

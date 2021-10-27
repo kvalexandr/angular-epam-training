@@ -1,8 +1,12 @@
 export interface Course {
   id: number,
-  title: string,
-  create_data: string,
-  duration: number,
-  topRated: boolean,
-  description: string
+  name: string,
+  date: string,
+  length: number,
+  isTopRated: boolean,
+  description: string,
+  authors?: {
+    id: number,
+    name: string
+  }
 }

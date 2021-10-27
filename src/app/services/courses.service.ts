@@ -1,97 +1,42 @@
 import {Course} from './../models/Course';
 import {Injectable} from '@angular/core';
-import {CourseInput} from "../models/CourseInput";
+import {HttpClient, HttpParams} from "@angular/common/http";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CoursesService {
 
-  public courses: Course[] = [
-    {
-      id: 1,
-      title: 'HTML + CSS',
-      create_data: new Date(2021, 8, 20).toString(),
-      duration: 30,
-      topRated: true,
-      description: `Learn about where you can find course descriptions, what information they include, how they work, and details
-      about
-      various components of a course description. Course descriptions report information about a university or
-      college's
-      classes. They're published both in course catalogs that outline degree requirements and in course schedules that
-      contain
-      descriptions for all courses offered during a particular semester.`
-    },
-    {
-      id: 2,
-      title: 'Angular',
-      create_data: new Date(2021, 7, 28).toString(),
-      duration: 80,
-      topRated: false,
-      description: `Learn about where you can find course descriptions, what information they include, how they work, and details
-      about
-      various components of a course description. Course descriptions report information about a university or
-      college's
-      classes. They're published both in course catalogs that outline degree requirements and in course schedules that
-      contain
-      descriptions for all courses offered during a particular semester.`
-    },
-    {
-      id: 3,
-      title: 'Javascript begin',
-      create_data: new Date(2021, 3, 9).toString(),
-      duration: 120,
-      topRated: true,
-      description: `Learn about where you can find course descriptions, what information they include, how they work, and details
-      about
-      various components of a course description. Course descriptions report information about a university or
-      college's
-      classes. They're published both in course catalogs that outline degree requirements and in course schedules that
-      contain
-      descriptions for all courses offered during a particular semester.`
-    },
-    {
-      id: 4,
-      title: 'Javascript pro',
-      create_data: new Date(2021, 8, 30).toString(),
-      duration: 160,
-      topRated: false,
-      description: `Learn about where you can find course descriptions, what information they include, how they work, and details
-      about
-      various components of a course description. Course descriptions report information about a university or
-      college's
-      classes. They're published both in course catalogs that outline degree requirements and in course schedules that
-      contain
-      descriptions for all courses offered during a particular semester.`
-    }
-  ];
-
-  constructor() {
+  constructor(private http: HttpClient) {
   }
 
-  getList() {
-    return this.courses;
+  getList(page: number = 0, search: string = ''): Observable<Course[]> {
+    const countCourse = 2;
+    let params = new HttpParams();
+    params = params.append('sort', 'date');
+    params = params.append('count', countCourse);
+    params = params.append('start', page * countCourse);
+    if (search) params = params.append('textFragment', search);
+
+    return this.http.get<Course[]>(`http://localhost:3004/courses`, {
+      params
+    });
   }
 
-  create() {
-
+  getById(id: number): Observable<Course> {
+    return this.http.get<Course>(`http://localhost:3004/courses/${id}`);
   }
 
-  getById(id: number) {
-    return this.courses.find(c => c.id === id)
+  create(course: Course): Observable<Course> {
+    return this.http.post<Course>(`http://localhost:3004/courses`, course);
   }
 
-  update(id: number, courseInput: CourseInput) {
-    const idx = this.courses.findIndex(c => c.id === id);
-    this.courses[idx] = {
-      ...this.courses[idx],
-      ...courseInput
-    }
+  update(id: number, course: Course): Observable<Course> {
+    return this.http.patch<Course>(`http://localhost:3004/courses/${id}`, course);
   }
 
-  remove(elem: Course) {
-    const courseSet = new Set(this.courses);
-    courseSet.delete(elem);
-    this.courses = Array.from(courseSet);
+  remove(id: number): Observable<void> {
+    return this.http.delete<void>(`http://localhost:3004/courses/${id}`);
   }
 }

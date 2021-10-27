@@ -12,7 +12,7 @@ export class OrderByPipe implements PipeTransform {
       desc: -1,
     };
 
-    return [...courses].sort((a, b) => this.sortDate(a.create_data, b.create_data) * sortDirection[order]);
+    return [...courses].sort((a, b) => this.sortDate(a.date, b.date) * sortDirection[order]);
   }
 
   private sortDate(a: string | Date, b: string | Date) {

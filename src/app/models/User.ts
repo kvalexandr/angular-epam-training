@@ -1,12 +1,21 @@
 export interface User {
   id: number,
-  first_name: string,
-  last_name: string
+  token: string,
+  name: {
+    first: string,
+    last: string
+  },
+  login: string,
+  password: string
 }
 
 export interface UserLogin {
-  email: string,
+  login: string,
   password: string
+}
+
+export interface UserResponse {
+  token: string
 }
 
 export abstract class UserStorageData {
@@ -14,5 +23,5 @@ export abstract class UserStorageData {
 
   abstract remove(name: string): void;
 
-  abstract getByName(name: string): UserLogin;
+  abstract getByName(name: string): any;
 }

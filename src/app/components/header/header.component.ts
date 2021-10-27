@@ -11,7 +11,7 @@ import {Router} from "@angular/router";
 export class HeaderComponent implements OnInit {
   public faUser = faUser;
   public faSign = faSignInAlt;
-  public userLogin: string = '';
+  public userName: string = '';
   public userIsAuth: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) { }
@@ -19,8 +19,9 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.userIsAuth = this.authService.isAuth();
     if(this.userIsAuth) {
-      const userInfo = this.authService.getUserInfo();
-      this.userLogin = userInfo.email;
+      this.authService.getUserInfo().subscribe(user => {
+        this.userName = `${user.name.first} ${user.name.last}`;
+      });
     }
   }
 

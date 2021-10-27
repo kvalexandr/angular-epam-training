@@ -1,6 +1,6 @@
 export interface CourseInput {
-  title: string,
-  create_data: string,
-  duration: number,
+  name: string,
+  date: string,
+  length: number,
   description: string,
 }
