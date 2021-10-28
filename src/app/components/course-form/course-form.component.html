@@ -1,0 +1,24 @@
+<div class="form-field">
+  <div class="form-field__title">Title:</div>
+  <input class="input" [(ngModel)]="initialValue.name" type="text" name="name" placeholder="Text input" />
+</div>
+<div class="form-field">
+  <div class="form-field__title">Description:</div>
+  <textarea class="textarea" [(ngModel)]="initialValue.description" name="description" placeholder="Add description"></textarea>
+</div>
+<div class="form-field">
+  <div class="form-field__title">Date:</div>
+  <app-input-text (onChangeDate)="changeDate($event)" [value]="initialValue.date"></app-input-text>
+</div>
+<div class="form-field">
+  <div class="form-field__title">Duration:</div>
+  <app-input-duration (onChangeLength)="changeLength($event)" [value]="initialValue.length"></app-input-duration>
+</div>
+<div class="form-field">
+  <div class="form-field__title">Authors:</div>
+  <input class="input input-300" type="text" name="authors" placeholder="authors" />
+</div>
+<div class="form-field form-field--control-right">
+  <button type="submit" class="btn btn-grey" (click)="onCancel()">Cancel</button>
+  <button type="submit" class="btn btn-green" (click)="onSave()">Save</button>
+</div>

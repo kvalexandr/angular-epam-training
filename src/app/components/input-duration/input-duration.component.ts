@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'app-input-duration',
@@ -8,5 +8,9 @@ import {Component, Input} from '@angular/core';
 export class InputDurationComponent {
 
   @Input() value!: number;
+  @Output() onChangeLength = new EventEmitter<number>();
 
+  changeLength() {
+    this.onChangeLength.emit(this.value);
+  }
 }

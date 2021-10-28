@@ -17,7 +17,7 @@ export class CourseItemComponent implements OnInit {
   public faStar = faStar;
 
   @Input() course: Course = {} as Course;
-  @Output() onDelete = new EventEmitter<Course>();
+  @Output() onDelete = new EventEmitter<number>();
 
   constructor() {
   }
@@ -25,8 +25,8 @@ export class CourseItemComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  deleteCourse(elem: Course) {
-    this.onDelete.emit(elem);
+  deleteCourse(id: number) {
+    this.onDelete.emit(id);
   }
 
 }

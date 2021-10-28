@@ -1,40 +1,54 @@
 import {Injectable} from '@angular/core';
-import {StorageLocalService} from "./storage-local.service";
-import {UserLogin, UserStorageData} from "../models/User";
+import {User, UserLogin, UserStorageData} from "../models/User";
+import {HttpClient} from "@angular/common/http";
+import {tap} from "rxjs/operators";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private storage: UserStorageData) {
+  constructor(
+    private storage: UserStorageData,
+    private http: HttpClient
+  ) {
   }
 
-  login(email: string, password: string) {
-    const user: UserLogin = {
-      email,
-      password
-    }
-    this.storage.add('user', user);
-    console.log('login');
-    return true;
+  getToken() {
+    return this.storage.getByName('token');
+  }
+
+  login(userLogin: UserLogin): Observable<any> {
+    return this.http.post('http://localhost:3004/auth/login', userLogin)
+      .pipe(
+        tap(this.setToken.bind(this))
+      );
   }
 
   logout() {
-    this.storage.remove('user');
-    console.log('logout');
+    this.setToken(null);
   }
 
   isAuth() {
-    const user = this.getUserInfo();
-    if (user.email && user.password) {
-      return true;
-    }
-
-    return false;
+    const token = this.getToken();
+    return !!token;
   }
 
-  getUserInfo() {
-    return this.storage.getByName('user');
+  isAdmin() {
+    return true;
+  }
+
+  getUserInfo(): Observable<User> {
+    const token = this.storage.getByName('token');
+    return this.http.post<User>('http://localhost:3004/auth/userinfo', {token});
+  }
+
+  private setToken(response: any | null) {
+    if (response) {
+      this.storage.add('token', response.token);
+    } else {
+      this.storage.remove('token');
+    }
   }
 }

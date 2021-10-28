@@ -1,6 +1,7 @@
 import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { faUser, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -10,21 +11,23 @@ import { faUser, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 export class HeaderComponent implements OnInit {
   public faUser = faUser;
   public faSign = faSignInAlt;
-  public userLogin: string = '';
+  public userName: string = '';
   public userIsAuth: boolean = false;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.userIsAuth = this.authService.isAuth();
     if(this.userIsAuth) {
-      const userInfo = this.authService.getUserInfo();
-      this.userLogin = userInfo.email;
+      this.authService.getUserInfo().subscribe(user => {
+        this.userName = `${user.name.first} ${user.name.last}`;
+      });
     }
   }
 
   public logoutUser() {
     this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
 }

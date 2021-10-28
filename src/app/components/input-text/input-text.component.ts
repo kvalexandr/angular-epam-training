@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'app-input-text',
@@ -6,7 +6,10 @@ import {Component, Input} from '@angular/core';
   styleUrls: ['./input-text.component.scss']
 })
 export class InputTextComponent {
-
   @Input() value!: string;
+  @Output() onChangeDate = new EventEmitter<string>();
 
+  changeDate() {
+    this.onChangeDate.emit(this.value);
+  }
 }

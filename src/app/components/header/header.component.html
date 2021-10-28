@@ -5,7 +5,7 @@
       <div class="user">
         <div *ngIf="userIsAuth" class="user__login">
           <fa-icon [icon]="faUser"></fa-icon>
-          {{ userLogin }}
+          {{ userName }}
         </div>
         <button *ngIf="userIsAuth" class="user__logout" (click)="logoutUser()">
           <fa-icon [icon]="faSign"></fa-icon>

@@ -20,6 +20,11 @@ import { OrderByPipe } from './pipes/order-by.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
 import { InputTextComponent } from './components/input-text/input-text.component';
 import { InputDurationComponent } from './components/input-duration/input-duration.component';
+import { ErrorComponent } from './components/error/error.component';
+import {HttpClientModule} from "@angular/common/http";
+import { CourseFormComponent } from './components/course-form/course-form.component';
+import { CourseEditComponent } from './components/course-edit/course-edit.component';
+import {AUTH_INTERCEPTOR_PROVIDER} from "./config/config";
 
 @NgModule({
   declarations: [
@@ -37,16 +42,20 @@ import { InputDurationComponent } from './components/input-duration/input-durati
     OrderByPipe,
     FilterPipe,
     InputTextComponent,
-    InputDurationComponent
+    InputDurationComponent,
+    ErrorComponent,
+    CourseFormComponent,
+    CourseEditComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
     FormsModule,
-    AuthModule
+    AuthModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [AUTH_INTERCEPTOR_PROVIDER],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

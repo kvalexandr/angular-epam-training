@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 import {CoursesService} from "../../services/courses.service";
+import {Router} from "@angular/router";
+import {CourseInput} from "../../models/CourseInput";
 import {Course} from "../../models/Course";
 
 @Component({
@@ -7,24 +9,32 @@ import {Course} from "../../models/Course";
   templateUrl: './course-create.component.html',
   styleUrls: ['./course-create.component.scss']
 })
-export class CourseCreateComponent implements OnInit {
+export class CourseCreateComponent {
 
-  public title = 'HTML + CSS';
-  public createData = '01.10.2021';
-  public duration = 245;
-  public description = `Learn about where you can find course descriptions, what information they include, how they work, and details about descriptions for all courses offered during a particular semester.`
+  initialValue: CourseInput = {
+    name: '',
+    description: '',
+    date: '',
+    length: 0
+  };
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(
+    private router: Router,
+    private coursesService: CoursesService
+  ) {
   }
 
-  public cancel() {
-    console.log('cancel');
-  }
+  public onSave(courseInput: CourseInput) {
+    const course: Course = {
+      ...courseInput,
+      id: Date.now(),
+      isTopRated: false,
+      date: new Date(courseInput.date).toISOString()
+    }
 
-  public save() {
-    console.log('save');
+    this.coursesService.create(course).subscribe((course) => {
+      this.router.navigate(['/courses']);
+    });
   }
 
 }
