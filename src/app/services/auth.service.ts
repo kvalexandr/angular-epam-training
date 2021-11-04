@@ -3,6 +3,7 @@ import {User, UserLogin, UserResponse, UserStorageData} from "../models/User";
 import {HttpClient} from "@angular/common/http";
 import {tap} from "rxjs/operators";
 import {BehaviorSubject, Observable} from "rxjs";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class AuthService {
   }
 
   login(userLogin: UserLogin): Observable<UserResponse> {
-    return this.http.post<UserResponse>('http://localhost:3004/auth/login', userLogin)
+    return this.http.post<UserResponse>(`${environment.apiUrl}/auth/login`, userLogin)
       .pipe(
         tap(this.setToken.bind(this))
       );
@@ -45,7 +46,7 @@ export class AuthService {
 
   getUserInfo(): Observable<User> {
     const token = this.getToken();
-    return this.http.post<User>('http://localhost:3004/auth/userinfo', {token});
+    return this.http.post<User>(`${environment.apiUrl}/auth/userinfo`, {token});
   }
 
   private setToken(response: any | null) {
