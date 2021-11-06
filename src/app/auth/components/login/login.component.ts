@@ -24,10 +24,5 @@ export class LoginComponent implements OnInit {
     }).subscribe(() => {
       this.router.navigate(['/courses']);
     });
-
-    // const isAuth = this.authService.login(this.email, this.password);
-    // if (isAuth) {
-    //   this.router.navigate(['/']);
-    // }
   }
 }

@@ -1,6 +1,6 @@
-import { AuthService } from './../../services/auth.service';
-import { Component, OnInit } from '@angular/core';
-import { faUser, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import {AuthService} from './../../services/auth.service';
+import {Component, OnInit} from '@angular/core';
+import {faUser, faSignInAlt} from '@fortawesome/free-solid-svg-icons';
 import {Router} from "@angular/router";
 
 @Component({
@@ -14,15 +14,18 @@ export class HeaderComponent implements OnInit {
   public userName: string = '';
   public userIsAuth: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) {
+  }
 
   ngOnInit(): void {
-    this.userIsAuth = this.authService.isAuth();
-    if(this.userIsAuth) {
-      this.authService.getUserInfo().subscribe(user => {
-        this.userName = `${user.name.first} ${user.name.last}`;
-      });
-    }
+    this.authService.isAuthorization.subscribe(auth => {
+      this.userIsAuth = auth;
+      if(auth) {
+        this.authService.getUserInfo().subscribe(user => {
+          this.userName = `${user.name.first} ${user.name.last}`;
+        });
+      }
+    });
   }
 
   public logoutUser() {

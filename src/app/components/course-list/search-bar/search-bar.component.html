@@ -1,7 +1,6 @@
 <div class="search">
   <div class="search__container">
-    <input [(ngModel)]="searchValue" class="input search__input" type="text" placeholder="Type to search" />
-    <button (click)="searchCourse()" class="btn search__btn">Seach</button>
+    <input [(ngModel)]="searchValue" #search class="input search__input" type="text" placeholder="Type to search" />
   </div>
   <div class="add-course">
     <button class="btn" [routerLink]="['/courses', 'new']">

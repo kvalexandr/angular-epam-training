@@ -1,13 +1,16 @@
 import {Injectable} from '@angular/core';
-import {User, UserLogin, UserStorageData} from "../models/User";
+import {User, UserLogin, UserResponse, UserStorageData} from "../models/User";
 import {HttpClient} from "@angular/common/http";
 import {tap} from "rxjs/operators";
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
+  isAuthorization: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.isAuth());
 
   constructor(
     private storage: UserStorageData,
@@ -16,11 +19,12 @@ export class AuthService {
   }
 
   getToken() {
-    return this.storage.getByName('token');
+    const token = this.storage.getByName('token');
+    return token.id || '';
   }
 
-  login(userLogin: UserLogin): Observable<any> {
-    return this.http.post('http://localhost:3004/auth/login', userLogin)
+  login(userLogin: UserLogin): Observable<UserResponse> {
+    return this.http.post<UserResponse>(`${environment.apiUrl}/auth/login`, userLogin)
       .pipe(
         tap(this.setToken.bind(this))
       );
@@ -28,6 +32,7 @@ export class AuthService {
 
   logout() {
     this.setToken(null);
+
   }
 
   isAuth() {
@@ -40,15 +45,17 @@ export class AuthService {
   }
 
   getUserInfo(): Observable<User> {
-    const token = this.storage.getByName('token');
-    return this.http.post<User>('http://localhost:3004/auth/userinfo', {token});
+    const token = this.getToken();
+    return this.http.post<User>(`${environment.apiUrl}/auth/userinfo`, {token});
   }
 
   private setToken(response: any | null) {
     if (response) {
-      this.storage.add('token', response.token);
+      this.storage.add('token', {id: response.token});
+      this.isAuthorization.next(true);
     } else {
       this.storage.remove('token');
+      this.isAuthorization.next(false);
     }
   }
 }

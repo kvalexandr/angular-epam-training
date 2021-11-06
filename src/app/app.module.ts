@@ -25,6 +25,7 @@ import {HttpClientModule} from "@angular/common/http";
 import { CourseFormComponent } from './components/course-form/course-form.component';
 import { CourseEditComponent } from './components/course-edit/course-edit.component';
 import {AUTH_INTERCEPTOR_PROVIDER} from "./config/config";
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import {AUTH_INTERCEPTOR_PROVIDER} from "./config/config";
     InputDurationComponent,
     ErrorComponent,
     CourseFormComponent,
-    CourseEditComponent
+    CourseEditComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
