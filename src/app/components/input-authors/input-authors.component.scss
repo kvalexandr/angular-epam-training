@@ -1,11 +1,12 @@
 .field-chips {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   font-size: 14px;
   border: 1px solid #ced0db;
   border-radius: 3px;
-  padding: 5px 12px 5px 0;
-  height: 45px;
+  padding: 0 12px 5px 0;
+  min-height: 45px;
 }
 
 .field-authors {
@@ -40,6 +41,7 @@
   padding: 0 5px 0 10px;
   border-radius: 20px;
   margin-left: 5px;
+  margin-top: 5px;
 
   &-text {
     padding-right: 12px;
@@ -69,5 +71,6 @@
     font-size: 14px;
     outline: none;
     margin-left: 10px;
+    padding: 12px 0;
   }
 }
