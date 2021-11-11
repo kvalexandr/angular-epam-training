@@ -4,8 +4,8 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
 import {CoursesService} from "../../services/courses.service";
 import {Course} from "../../models/Course";
 import {DateTime} from "luxon";
-import {switchMap} from "rxjs/operators";
-import {Subject} from "rxjs";
+import {map, switchMap, tap} from "rxjs/operators";
+import {Observable} from "rxjs";
 import {LoaderService} from "../../services/loader.service";
 
 @Component({
@@ -15,7 +15,7 @@ import {LoaderService} from "../../services/loader.service";
 })
 export class CourseEditComponent implements OnInit {
 
-  initialValue$: Subject<CourseInput> = new Subject<CourseInput>();
+  initialValue$!: Observable<Course>;
   course!: Course;
 
   constructor(
@@ -28,23 +28,23 @@ export class CourseEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.loader.setLoad(true);
-    this.route.params
+    this.initialValue$ = this.route.params
       .pipe(
         switchMap((params: Params) => {
-          return this.coursesService.getById(+params.id);
+          return this.coursesService.getById(+params.id).pipe(
+            map((course: Course) => {
+              return {
+                ...course,
+                date: DateTime.fromISO(course.date).toFormat('dd/LL/yyyy'),
+              }
+            }),
+            tap((course: Course) => {
+              this.course = course;
+              this.loader.setLoad(false);
+            })
+          );
         })
-      )
-      .subscribe((course: Course) => {
-        this.course = course;
-        this.initialValue$.next({
-          name: course.name,
-          description: course.description,
-          date: DateTime.fromISO(course.date).toFormat('dd/LL/yyyy'),
-          length: course.length,
-          authors: course.authors
-        });
-        this.loader.setLoad(false);
-      });
+      );
   }
 
   public onSave(courseInput: CourseInput) {

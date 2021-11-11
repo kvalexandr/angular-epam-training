@@ -14,6 +14,36 @@ export class CourseFormComponent implements OnInit {
 
   form!: FormGroup;
 
+  errorMessages: { [key: string]: string } = {
+    name: '',
+    description: '',
+    date: '',
+    length: '',
+    authors: ''
+  };
+
+  validationMessage: { [key: string]: { [key: string]: string } } = {
+    name: {
+      required: 'The name field cannot be empty',
+      maxlength: `There must be a maximum of 50 characters`
+    },
+    description: {
+      required: 'The description field cannot be empty',
+      maxlength: `There must be a maximum of 500 characters`
+    },
+    date: {
+      required: 'The date field cannot be empty',
+      incorrectDate: `Incorrect date format`
+    },
+    length: {
+      required: 'The length field cannot be empty',
+      notNumber: `Not number`
+    },
+    authors: {
+      required: 'The authors field cannot be empty',
+    }
+  };
+
   constructor(private router: Router) {
   }
 
@@ -25,6 +55,17 @@ export class CourseFormComponent implements OnInit {
       length: new FormControl(this.initialValue.length, [Validators.required]),
       authors: new FormControl(this.initialValue.authors, [Validators.required])
     });
+  }
+
+  isControlInvalid(controlName: string): boolean {
+    const control = this.form.controls[controlName];
+    const check = control.invalid && control.dirty;
+    if (check) {
+      for (let key in control.errors) {
+        this.errorMessages[controlName] = this.validationMessage[controlName][key];
+      }
+    }
+    return check;
   }
 
   onSave() {
