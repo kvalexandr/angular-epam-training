@@ -3,6 +3,7 @@ import {CoursesService} from "../../services/courses.service";
 import {Router} from "@angular/router";
 import {CourseInput} from "../../models/CourseInput";
 import {Course} from "../../models/Course";
+import {DateTime} from "luxon";
 
 @Component({
   selector: 'app-course-create',
@@ -15,7 +16,8 @@ export class CourseCreateComponent {
     name: '',
     description: '',
     date: '',
-    length: 0
+    length: 0,
+    authors: []
   };
 
   constructor(
@@ -29,7 +31,7 @@ export class CourseCreateComponent {
       ...courseInput,
       id: Date.now(),
       isTopRated: false,
-      date: new Date(courseInput.date).toISOString()
+      date: DateTime.fromFormat(courseInput.date, 'dd/LL/yyyy').toISO()
     }
 
     this.coursesService.create(course).subscribe((course) => {

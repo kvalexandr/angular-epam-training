@@ -63,6 +63,12 @@ a {
 .btn-green {
   color: #fff;
   background: #67a300;
+
+  &:disabled {
+    background: rgba(18, 21, 35, 0.5);
+    color: #bcbdbf;
+    opacity: 1;
+  }
 }
 
 .btn-small {
@@ -124,10 +130,11 @@ a {
   border-radius: 3px;
   padding: 10px 12px;
   width: 100%;
+  outline: none;
 }
 
 .input-150 {
-  width: 150px;
+  width: 250px;
 
   @media (max-width: 480px) {
     width: 100%;
@@ -148,4 +155,23 @@ a {
   padding: 10px 12px;
   width: 100%;
   height: 108px;
+  outline: none;
+}
+
+.form-error {
+
+  & &-message {
+    color: #ff4e33;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+
+  & .input {
+    border-color: #ff4e33 !important;
+  }
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
 }

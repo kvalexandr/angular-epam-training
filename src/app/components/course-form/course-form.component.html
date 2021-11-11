@@ -1,24 +1,57 @@
-<div class="form-field">
-  <div class="form-field__title">Title:</div>
-  <input class="input" [(ngModel)]="initialValue.name" type="text" name="name" placeholder="Text input" />
-</div>
-<div class="form-field">
-  <div class="form-field__title">Description:</div>
-  <textarea class="textarea" [(ngModel)]="initialValue.description" name="description" placeholder="Add description"></textarea>
-</div>
-<div class="form-field">
-  <div class="form-field__title">Date:</div>
-  <app-input-text (onChangeDate)="changeDate($event)" [value]="initialValue.date"></app-input-text>
-</div>
-<div class="form-field">
-  <div class="form-field__title">Duration:</div>
-  <app-input-duration (onChangeLength)="changeLength($event)" [value]="initialValue.length"></app-input-duration>
-</div>
-<div class="form-field">
-  <div class="form-field__title">Authors:</div>
-  <input class="input input-300" type="text" name="authors" placeholder="authors" />
-</div>
-<div class="form-field form-field--control-right">
-  <button type="submit" class="btn btn-grey" (click)="onCancel()">Cancel</button>
-  <button type="submit" class="btn btn-green" (click)="onSave()">Save</button>
-</div>
+<form [formGroup]="form">
+
+  <div class="form-field" [class.form-error]="form.get('name')?.invalid && form.get('name')?.dirty">
+    <div class="form-field__title">Title:</div>
+    <input class="input" formControlName="name" type="text" name="name" autocomplete="off" placeholder="Text input"/>
+    <div class="form-error-message" *ngIf="form.get('name')?.invalid && form.get('name')?.dirty">
+      <span *ngIf="form.get('name')?.errors?.required">The name field cannot be empty</span>
+      <span *ngIf="form.get('name')?.errors?.maxlength">
+        There must be a maximum of {{form.get('name')?.errors?.maxlength.requiredLength}} characters
+      </span>
+    </div>
+  </div>
+
+  <div class="form-field" [class.form-error]="form.get('description')?.invalid && form.get('description')?.dirty">
+    <div class="form-field__title">Description:</div>
+    <textarea class="textarea" formControlName="description" name="description"
+              placeholder="Add description"></textarea>
+    <div class="form-error-message" *ngIf="form.get('description')?.invalid && form.get('description')?.dirty">
+      <span *ngIf="form.get('description')?.errors?.required">The description field cannot be empty</span>
+      <span *ngIf="form.get('description')?.errors?.maxlength">
+          There must be a maximum of {{form.get('description')?.errors?.maxlength.requiredLength}} characters
+        </span>
+    </div>
+  </div>
+
+  <div class="form-field" [class.form-error]="form.get('date')?.invalid && form.get('date')?.dirty">
+    <div class="form-field__title">Date:</div>
+    <app-input-text appDateValidator formControlName="date"></app-input-text>
+    <div class="form-error-message" *ngIf="form.get('date')?.invalid && form.get('date')?.dirty">
+      <span *ngIf="form.get('date')?.errors?.required">The date field cannot be empty</span>
+      <span *ngIf="form.get('date')?.errors?.incorrectDate">Incorrect date format</span>
+    </div>
+  </div>
+
+  <div class="form-field" [class.form-error]="form.get('length')?.invalid && form.get('length')?.dirty">
+    <div class="form-field__title">Duration:</div>
+    <app-input-duration appLengthValidator formControlName="length"></app-input-duration>
+    <div class="form-error-message" *ngIf="form.get('length')?.invalid && form.get('length')?.dirty">
+      <span *ngIf="form.get('length')?.errors?.required">The duration field cannot be empty</span>
+      <span *ngIf="form.get('length')?.errors?.notNumber">Not number</span>
+    </div>
+  </div>
+
+  <div class="form-field" [class.form-error]="form.get('authors')?.invalid && form.get('authors')?.dirty">
+    <div class="form-field__title">Authors:</div>
+    <app-input-authors formControlName="authors"></app-input-authors>
+    <div class="form-error-message" *ngIf="form.get('authors')?.invalid && form.get('authors')?.dirty">
+      <span *ngIf="form.get('authors')?.errors?.required">The authors field cannot be empty</span>
+    </div>
+  </div>
+
+  <div class="form-field form-field--control-right">
+    <button type="button" class="btn btn-grey" (click)="onCancel()">Cancel</button>
+    <button type="button" class="btn btn-green" (click)="onSave()" [disabled]="form.invalid">Save</button>
+  </div>
+
+</form>

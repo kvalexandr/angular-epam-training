@@ -3,7 +3,7 @@
   <div class="container-form">
     <h2>Edit course</h2>
     <app-course-form
-      [initialValue]="initialValue"
+      *ngIf="initialValue$ | async as initialValue" [initialValue]="initialValue"
       (courseSaveEvent)="onSave($event)"
     ></app-course-form>
   </div>

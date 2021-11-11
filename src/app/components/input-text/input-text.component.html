@@ -1,6 +1,9 @@
 <input
   class="input input-150"
-  (change)="changeDate()"
-  [(ngModel)]="value"
-  type="date"
+  (input)="setValue($event)"
+  (blur)="touchValue()"
+  [value]="date"
+  autocomplete="off"
+  type="text"
+  placeholder="dd/mm/yyyy"
   name="date" />

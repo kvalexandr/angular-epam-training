@@ -5,8 +5,5 @@ export interface Course {
   length: number,
   isTopRated: boolean,
   description: string,
-  authors?: {
-    id: number,
-    name: string
-  }
+  authors: []
 }
