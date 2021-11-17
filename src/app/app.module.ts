@@ -13,7 +13,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { LogoComponent } from './components/header/logo/logo.component';
 import { CourseCreateComponent } from './components/course-create/course-create.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BorderDirective } from './directives/border.directive';
 import { DurationPipe } from './pipes/duration.pipe';
 import { OrderByPipe } from './pipes/order-by.pipe';
@@ -26,6 +26,9 @@ import { CourseFormComponent } from './components/course-form/course-form.compon
 import { CourseEditComponent } from './components/course-edit/course-edit.component';
 import {AUTH_INTERCEPTOR_PROVIDER} from "./config/config";
 import { LoaderComponent } from './components/loader/loader.component';
+import {LengthValidatorDirective} from "./validators/length-validator.directive";
+import {DateValidatorDirective} from "./validators/date-validator.directive";
+import { InputAuthorsComponent } from './components/input-authors/input-authors.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +50,10 @@ import { LoaderComponent } from './components/loader/loader.component';
     ErrorComponent,
     CourseFormComponent,
     CourseEditComponent,
-    LoaderComponent
+    LoaderComponent,
+    LengthValidatorDirective,
+    DateValidatorDirective,
+    InputAuthorsComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +61,8 @@ import { LoaderComponent } from './components/loader/loader.component';
     FontAwesomeModule,
     FormsModule,
     AuthModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [AUTH_INTERCEPTOR_PROVIDER],
   bootstrap: [AppComponent]

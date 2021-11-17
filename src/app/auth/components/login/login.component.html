@@ -1,16 +1,24 @@
 <div class="login">
   <div class="container-form">
-    <div class="form-field">
-      <div class="form-field__title">E-mail:</div>
-      <input class="input" type="text" placeholder="Enter E-mail" [(ngModel)]="email" />
-    </div>
-    <div class="form-field">
-      <div class="form-field__title">Password:</div>
-      <input class="input" type="password" placeholder="Enter password" [(ngModel)]="password" />
-    </div>
-    <div class="form-field form-field--control">
-      <a class="form-field__link" href="">Forgot password?</a>
-      <button type="submit" class="btn" (click)="loginUser()">Login</button>
-    </div>
+    <form [formGroup]="form" (ngSubmit)="loginUser()">
+      <div class="form-header">
+        <h2>Login</h2>
+        <div class="form-error" *ngIf="form.invalid && form.touched">
+          <div class="form-error-message">Wrong login or password</div>
+        </div>
+      </div>
+      <div class="form-field">
+        <div class="form-field__title">Login:</div>
+        <input class="input" type="text" placeholder="Enter E-mail" formControlName="login"/>
+      </div>
+      <div class="form-field">
+        <div class="form-field__title">Password:</div>
+        <input class="input" type="password" placeholder="Enter password" formControlName="password"/>
+      </div>
+      <div class="form-field form-field--control">
+        <a class="form-field__link" href="">Forgot password?</a>
+        <button type="submit" class="btn" [disabled]="form.invalid">Login</button>
+      </div>
+    </form>
   </div>
 </div>

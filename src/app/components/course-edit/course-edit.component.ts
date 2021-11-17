@@ -3,7 +3,10 @@ import {CourseInput} from "../../models/CourseInput";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {CoursesService} from "../../services/courses.service";
 import {Course} from "../../models/Course";
-import * as moment from "moment";
+import {DateTime} from "luxon";
+import {map, switchMap, tap} from "rxjs/operators";
+import {Observable} from "rxjs";
+import {LoaderService} from "../../services/loader.service";
 
 @Component({
   selector: 'app-course-edit',
@@ -12,30 +15,36 @@ import * as moment from "moment";
 })
 export class CourseEditComponent implements OnInit {
 
-  initialValue: CourseInput = {} as CourseInput;
+  initialValue$!: Observable<Course>;
   course!: Course;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private coursesService: CoursesService
+    private coursesService: CoursesService,
+    private loader: LoaderService
   ) {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: Params) => {
-        this.coursesService.getById(+params.id)
-          .subscribe(course => {
-            this.course = course;
-            this.initialValue = {
-              name: course.name,
-              description: course.description,
-              date: moment(course.date).format('YYYY-MM-DD'),
-              length: course.length
-            };
-          });
-      }
-    );
+    this.loader.setLoad(true);
+    this.initialValue$ = this.route.params
+      .pipe(
+        switchMap((params: Params) => {
+          return this.coursesService.getById(+params.id).pipe(
+            map((course: Course) => {
+              return {
+                ...course,
+                date: DateTime.fromISO(course.date).toFormat('dd/LL/yyyy'),
+              }
+            }),
+            tap((course: Course) => {
+              this.course = course;
+              this.loader.setLoad(false);
+            })
+          );
+        })
+      );
   }
 
   public onSave(courseInput: CourseInput) {
@@ -43,7 +52,7 @@ export class CourseEditComponent implements OnInit {
     const course: Course = {
       ...this.course,
       ...courseInput,
-      date: new Date(courseInput.date).toISOString()
+      date: DateTime.fromFormat(courseInput.date, 'dd/LL/yyyy').toISO()
     }
 
     this.coursesService.update(id, course).subscribe(course => {

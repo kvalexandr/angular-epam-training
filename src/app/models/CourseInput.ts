@@ -3,4 +3,5 @@ export interface CourseInput {
   date: string,
   length: number,
   description: string,
+  authors: []
 }

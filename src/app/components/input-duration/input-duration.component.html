@@ -1,9 +1,11 @@
 <input
   class="input input-150"
   type="text"
+  autocomplete="off"
   placeholder="minutes"
   name="minutes"
-  (change)="changeLength()"
-  [(ngModel)]="value"
+  (input)="setValue($event)"
+  (blur)="touchValue()"
+  [value]="length"
 />
-<span class="duration-transform" *ngIf="value > 0">{{value | duration}}</span>
+<span class="duration-transform" *ngIf="length > 0">{{length | duration}}</span>

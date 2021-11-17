@@ -1,4 +1,5 @@
 import {Course} from './../models/Course';
+import {Authors} from './../models/Authors';
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
@@ -40,5 +41,14 @@ export class CoursesService {
 
   remove(id: number): Observable<void> {
     return this.http.delete<void>(`${environment.apiUrl}/courses/${id}`);
+  }
+
+  getAuthors(search: string = ''): Observable<Authors[]> {
+    let params = new HttpParams();
+    params = params.append('textFragment', search);
+
+    return this.http.get<Authors[]>(`${environment.apiUrl}/authors`, {
+      params
+    });
   }
 }
