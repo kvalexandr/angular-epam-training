@@ -53,6 +53,12 @@ a {
   &:hover {
     opacity: .7;
   }
+
+  &:disabled {
+    background: rgba(18, 21, 35, 0.5);
+    color: #bcbdbf;
+    opacity: 1;
+  }
 }
 
 .btn-grey {
@@ -63,12 +69,6 @@ a {
 .btn-green {
   color: #fff;
   background: #67a300;
-
-  &:disabled {
-    background: rgba(18, 21, 35, 0.5);
-    color: #bcbdbf;
-    opacity: 1;
-  }
 }
 
 .btn-small {

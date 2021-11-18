@@ -29,6 +29,10 @@ import { LoaderComponent } from './components/loader/loader.component';
 import {LengthValidatorDirective} from "./validators/length-validator.directive";
 import {DateValidatorDirective} from "./validators/date-validator.directive";
 import { InputAuthorsComponent } from './components/input-authors/input-authors.component';
+import {StoreModule} from "@ngrx/store";
+import {StoreDevtoolsModule} from "@ngrx/store-devtools";
+import {environment} from "../environments/environment";
+import {EffectsModule} from "@ngrx/effects";
 
 @NgModule({
   declarations: [
@@ -62,7 +66,14 @@ import { InputAuthorsComponent } from './components/input-authors/input-authors.
     FormsModule,
     AuthModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+      autoPause: true,
+    }),
   ],
   providers: [AUTH_INTERCEPTOR_PROVIDER],
   bootstrap: [AppComponent]
