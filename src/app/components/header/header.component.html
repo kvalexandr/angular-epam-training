@@ -3,15 +3,15 @@
     <div class="header__container">
       <app-logo></app-logo>
       <div class="user">
-        <div *ngIf="userIsAuth" class="user__login">
+        <div *ngIf="isAuth$ | async" class="user__login">
           <fa-icon [icon]="faUser"></fa-icon>
-          {{ userName }}
+          {{ (currentUser$ | async)?.name?.first }} {{ (currentUser$ | async)?.name?.last }}
         </div>
-        <button *ngIf="userIsAuth" class="user__logout" (click)="logoutUser()">
+        <button *ngIf="isAuth$ | async" class="user__logout" (click)="logoutUser()">
           <fa-icon [icon]="faSign"></fa-icon>
           Log out
         </button>
-        <a [routerLink]="['/login']" *ngIf="!userIsAuth">Login</a>
+        <a [routerLink]="['/login']" *ngIf="!(isAuth$ | async)">Login</a>
       </div>
     </div>
   </div>

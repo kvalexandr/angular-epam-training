@@ -9,7 +9,7 @@
       </div>
       <div class="form-field">
         <div class="form-field__title">Login:</div>
-        <input class="input" type="text" placeholder="Enter E-mail" formControlName="login"/>
+        <input class="input" type="text" placeholder="Enter login" formControlName="login"/>
       </div>
       <div class="form-field">
         <div class="form-field__title">Password:</div>
@@ -17,7 +17,7 @@
       </div>
       <div class="form-field form-field--control">
         <a class="form-field__link" href="">Forgot password?</a>
-        <button type="submit" class="btn" [disabled]="form.invalid">Login</button>
+        <button type="submit" class="btn" [disabled]="form.invalid || (isSubmitting$ | async)">Login</button>
       </div>
     </form>
   </div>

@@ -2,6 +2,12 @@ import {AuthService} from './../../services/auth.service';
 import {Component, OnInit} from '@angular/core';
 import {faUser, faSignInAlt} from '@fortawesome/free-solid-svg-icons';
 import {Router} from "@angular/router";
+import {select, Store} from "@ngrx/store";
+import {Observable} from "rxjs";
+import {User} from "../../models/User";
+import {logoutAction} from "../../auth/store/actions/login.action";
+import {AppStateInterface} from "../../models/appState.interface";
+import {getUserSelector, isAuthSelector} from "../../auth/store/selectors";
 
 @Component({
   selector: 'app-header',
@@ -11,26 +17,20 @@ import {Router} from "@angular/router";
 export class HeaderComponent implements OnInit {
   public faUser = faUser;
   public faSign = faSignInAlt;
-  public userName: string = '';
-  public userIsAuth: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) {
+  isAuth$!: Observable<boolean | null>;
+  currentUser$!: Observable<User | null>;
+
+  constructor(private store: Store<AppStateInterface>) {
   }
 
   ngOnInit(): void {
-    this.authService.isAuthorization.subscribe(auth => {
-      this.userIsAuth = auth;
-      if(auth) {
-        this.authService.getUserInfo().subscribe(user => {
-          this.userName = `${user.name.first} ${user.name.last}`;
-        });
-      }
-    });
+    this.isAuth$ = this.store.pipe(select(isAuthSelector));
+    this.currentUser$ = this.store.pipe(select(getUserSelector));
   }
 
   public logoutUser() {
-    this.authService.logout();
-    this.router.navigate(['/login']);
+    this.store.dispatch(logoutAction());
   }
 
 }
